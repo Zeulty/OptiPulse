@@ -63,9 +63,9 @@ OptiPulse uses a **Free / VIP** model:
 | Core tweaks (CPU, GPU, RAM, input, network) | ✅ | ✅ |
 | System scan | ✅ | ✅ |
 | One-click scan fix | ❌ | ✅ |
-| Game packages | ❌ | ✅ |
-| UWP bloatware removal | ❌ | ✅ |
-| Startup app manager | ❌ | ✅ |
+| AI Game Package Selector | ❌ | ✅ |
+| UWP bloatware removal | ✅ | ✅ |
+| Startup app manager | ✅ | ✅ |
 
 ## 💻 Requirements
 
