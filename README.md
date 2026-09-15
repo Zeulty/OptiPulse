@@ -58,14 +58,23 @@ Available in **English · Turkish · Spanish · Chinese (Simplified)**
 
 OptiPulse uses a **Free / VIP** model:
 
-| | Free | VIP |
-|---|---|---|
-| Core tweaks (CPU, GPU, RAM, input, network) | ✅ | ✅ |
-| System scan | ✅ | ✅ |
-| One-click scan fix | ❌ | ✅ |
-| AI Game Package Selector | ❌ | ✅ |
-| UWP bloatware removal | ✅ | ✅ |
-| Startup app manager | ✅ | ✅ |
+| Feature                                  |  Free  |  VIP  |
+|------------------------------------------|:------:|:-----:|
+| 🌐 Network Latency Optimization           |   ✅   |  ✅   |
+| 🧹 Built-in App Remover (UWP)             |   ✅   |  ✅   |
+| ▶️ Startup App Manager                    |   ✅   |  ✅   |
+| 🧠 RAM Service Split Profiles (4–16 GB)   |   ✅   |  ✅   |
+| ⚙️ Foreground CPU Boost                   |   ✅   |  ✅   |
+| 🎮 NVIDIA GPU Optimization                |   ❌   |  ✅   |
+| 🎮 AMD GPU Optimization                   |   ❌   |  ✅   |
+| 🔋 Ultimate Performance Power Plan        |   ❌   |  ✅   |
+| ⌨️ Input Latency Removal                  |   ❌   |  ✅   |
+| 🧠 RAM Profiles up to 64 GB               |   ❌   |  ✅   |
+| 🔌 Extreme 5/10-Packet USB Buffers        |   ❌   |  ✅   |
+| 🔒 Privacy Lockdown (400+ settings)       |   ❌   |  ✅   |
+| 🧹 Bloat App & Telemetry Task Removal     |   ❌   |  ✅   |
+| 🔍 System Scan & Clean                    |   ❌   |  ✅   |
+| 📦 One-Click Game Packages                |   ❌   |  ✅   |
 
 ## 💻 Requirements
 
