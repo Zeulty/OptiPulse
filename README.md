@@ -6,16 +6,21 @@
 
 ### *Squeeze every last frame out of your PC. 100% Free & Open Source.*
 
-[![Version](https://img.shields.io/badge/Version-1.0.5-9B59F5?style=for-the-badge)](https://github.com/Krafein/OptiPulse/releases)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011%20(64--bit)-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Krafein/OptiPulse)
+[![Version](https://img.shields.io/badge/Version-1.0.5-9B59F5?style=for-the-badge)](https://github.com/Zeulty/OptiPulse/releases)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011%20(64--bit)-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Zeulty/OptiPulse)
 [![Framework](https://img.shields.io/badge/.NET-8.0%20WPF-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com)
 [![License](https://img.shields.io/badge/License-MIT-00C851?style=for-the-badge)](LICENSE)
-[![Languages](https://img.shields.io/badge/Languages-EN%20%7C%20TR%20%7C%20ES%20%7C%20ZH-F39C12?style=for-the-badge)](https://github.com/Krafein/OptiPulse)
-[![Admin](https://img.shields.io/badge/Requires-Administrator-E74C3C?style=for-the-badge&logo=windows)](https://github.com/Krafein/OptiPulse)
+[![Languages](https://img.shields.io/badge/Languages-EN%20%7C%20TR%20%7C%20ES%20%7C%20ZH-F39C12?style=for-the-badge)](https://github.com/Zeulty/OptiPulse)
+[![Admin](https://img.shields.io/badge/Requires-Administrator-E74C3C?style=for-the-badge&logo=windows)](https://github.com/Zeulty/OptiPulse)
 
 <br/>
 
 > **OptiPulse** is a lightweight, hardware-aware Windows optimization suite designed for competitive gamers, enthusiasts, and power users. Every tweak, preset bundle, and optimization tool is fully accessible, transparent, and completely free forever.
+
+<br/>
+
+<!-- Main User Interface Preview -->
+<img src="hmg.png" alt="OptiPulse User Interface" width="92%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6);" />
 
 <br/>
 
@@ -76,7 +81,7 @@ Pre-configured optimization bundles that apply tested combinations with one clic
 ### 1. Clone & Build
 ```powershell
 # Clone the repository
-git clone https://github.com/Krafein/OptiPulse.git
+git clone https://github.com/Zeulty/OptiPulse.git
 cd OptiPulse
 
 # Build Debug configuration
