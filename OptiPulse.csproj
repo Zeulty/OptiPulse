@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>OptiPulse</AssemblyName>
+    <RootNamespace>ChlorideTweaks</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <!-- App version displayed in the sidebar. -->
+    <Version>1.0.5</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- WMI access for PC info (Windows version, user name) -->
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Background video: shipped as a loose file next to the exe and played
+         on loop as the main window backdrop. -->
+    <None Update="Assets\background.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <!-- Edge uninstaller offline binaries: shipped next to the exe -->
+    <None Update="Assets\EdgeRemover\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

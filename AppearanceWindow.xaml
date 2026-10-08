@@ -1,0 +1,220 @@
+﻿<Window x:Class="ChlorideTweaks.AppearanceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:services="clr-namespace:ChlorideTweaks.Services"
+        Title="Appearance" Width="600" Height="700"
+        MinWidth="540" MinHeight="620"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource BrushBackdrop}">
+
+    <Window.Resources>
+        <!-- Section heading -->
+        <Style x:Key="SectionLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource BrushTextMuted}"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,26,0,10"/>
+        </Style>
+
+        <!-- Thin gradient separator under each section heading (accent-aware) -->
+
+        <!-- Preset swatch: soft shadow, hover scales up, selection ring is
+             applied in code (white border + check mark). -->
+        <Style x:Key="PresetSwatch" TargetType="Border">
+            <Setter Property="Width" Value="42"/>
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="CornerRadius" Value="13"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#26FFFFFF"/>
+            <Setter Property="Margin" Value="5,5,5,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="12" ShadowDepth="0" Opacity="0.30" Color="#FF000000"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                 To="1.14" Duration="0:0:0.16" EasingFunction="{StaticResource EaseOut}"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                 To="1.14" Duration="0:0:0.16" EasingFunction="{StaticResource EaseOut}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                 To="1" Duration="0:0:0.22" EasingFunction="{StaticResource EaseOut}"/>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                 To="1" Duration="0:0:0.22" EasingFunction="{StaticResource EaseOut}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Soft halo in the background -->
+        <Ellipse IsHitTestVisible="False" Opacity="0.4" Margin="-80">
+            <Ellipse.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Color="{DynamicResource ColAccentDim}" Offset="0"/>
+                    <GradientStop Color="#00151528" Offset="1"/>
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <Grid Margin="30,26,30,24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- ============ HEADER ============ -->
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="{Binding [Appearance], Source={x:Static services:LocalizationService.Instance}}"
+                           FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center">
+                    <TextBlock.Effect>
+                        <DropShadowEffect Color="{DynamicResource ColNeonPurple}" BlurRadius="20"
+                                          ShadowDepth="0" Opacity="0.5"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Text="{Binding [AppearanceSubtitle], Source={x:Static services:LocalizationService.Instance}}"
+                           FontSize="11.5" TextWrapping="Wrap" TextAlignment="Center" Margin="20,8,20,0"
+                           Foreground="{StaticResource BrushTextSecondary}"/>
+            </StackPanel>
+
+            <!-- ============ BODY ============ -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,4,0,0">
+                <StackPanel MaxWidth="470" HorizontalAlignment="Center">
+
+                    <!-- Hero: the live accent as a glowing orb -->
+                    <StackPanel HorizontalAlignment="Center" Margin="0,20,0,0">
+                        <Grid>
+                            <Ellipse Width="98" Height="98" Fill="{DynamicResource BrushNeonPurple}">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect Color="{DynamicResource ColNeonPurple}" BlurRadius="46"
+                                                      ShadowDepth="0" Opacity="0.75"/>
+                                </Ellipse.Effect>
+                            </Ellipse>
+                            <!-- Glass highlight for depth -->
+                            <Ellipse Width="98" Height="98">
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush GradientOrigin="0.35,0.25" Center="0.35,0.25"
+                                                         RadiusX="0.5" RadiusY="0.5">
+                                        <GradientStop Color="#59FFFFFF" Offset="0"/>
+                                        <GradientStop Color="#00FFFFFF" Offset="0.7"/>
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Grid>
+                        <TextBlock x:Name="HexPreview" Text="#7B5CFA" FontSize="16" FontWeight="SemiBold"
+                                   FontFamily="Consolas" HorizontalAlignment="Center" Margin="0,14,0,0"
+                                   Foreground="{StaticResource BrushTextPrimary}"/>
+                    </StackPanel>
+
+                    <!-- ============ PRESETS ============ -->
+                    <TextBlock Text="{Binding [PresetColors], Source={x:Static services:LocalizationService.Instance}}"
+                               Style="{StaticResource SectionLabel}"/>
+                    <Border Height="1" Width="240" Margin="0,0,0,8">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="{DynamicResource ColAccentSoftFade}" Offset="0"/>
+                                <GradientStop Color="{DynamicResource ColAccentSoft}" Offset="0.5"/>
+                                <GradientStop Color="{DynamicResource ColAccentSoftFade}" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <WrapPanel x:Name="PresetPanel" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+
+                    <!-- ============ CUSTOM COLOR ============ -->
+                    <TextBlock Text="{Binding [CustomColor], Source={x:Static services:LocalizationService.Instance}}"
+                               Style="{StaticResource SectionLabel}"/>
+                    <Border Height="1" Width="240" Margin="0,0,0,8">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                <GradientStop Color="{DynamicResource ColAccentSoftFade}" Offset="0"/>
+                                <GradientStop Color="{DynamicResource ColAccentSoft}" Offset="0.5"/>
+                                <GradientStop Color="{DynamicResource ColAccentSoftFade}" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+
+                    <Border Background="{StaticResource BrushCardTranslucent}"
+                            BorderBrush="{StaticResource BrushBorder}" BorderThickness="1"
+                            CornerRadius="16" Padding="22,18" Margin="0,4,0,0">
+                        <StackPanel>
+                            <!-- Hex input -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="HEX" FontSize="10" FontWeight="SemiBold"
+                                           Margin="0,0,12,0" VerticalAlignment="Center"
+                                           Foreground="{StaticResource BrushTextMuted}"/>
+                                <TextBox Grid.Column="1" x:Name="HexInput" Style="{StaticResource NeonInput}"
+                                         FontFamily="Consolas" MaxLength="7"
+                                         KeyDown="HexInput_KeyDown" LostFocus="HexInput_LostFocus"/>
+                            </Grid>
+
+                            <!-- R / G / B sliders -->
+                            <Grid Margin="0,16,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="32"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Ellipse Grid.Row="0" Grid.Column="0" Width="10" Height="10" Fill="#FF7A7A"
+                                         Margin="0,0,12,0" VerticalAlignment="Center"/>
+                                <Slider Grid.Row="0" Grid.Column="1" x:Name="RedSlider" Style="{StaticResource NeonSlider}"
+                                        Maximum="255" TickFrequency="1" Margin="0,2,0,12" ValueChanged="RgbSlider_ValueChanged"/>
+                                <TextBlock Grid.Row="0" Grid.Column="2" x:Name="RedValue" Text="0" FontSize="11"
+                                           Foreground="{StaticResource BrushTextSecondary}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                                <Ellipse Grid.Row="1" Grid.Column="0" Width="10" Height="10" Fill="#7ADF8A"
+                                         Margin="0,0,12,0" VerticalAlignment="Center"/>
+                                <Slider Grid.Row="1" Grid.Column="1" x:Name="GreenSlider" Style="{StaticResource NeonSlider}"
+                                        Maximum="255" TickFrequency="1" Margin="0,2,0,12" ValueChanged="RgbSlider_ValueChanged"/>
+                                <TextBlock Grid.Row="1" Grid.Column="2" x:Name="GreenValue" Text="0" FontSize="11"
+                                           Foreground="{StaticResource BrushTextSecondary}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+                                <Ellipse Grid.Row="2" Grid.Column="0" Width="10" Height="10" Fill="#7AA8FF"
+                                         Margin="0,0,12,0" VerticalAlignment="Center"/>
+                                <Slider Grid.Row="2" Grid.Column="1" x:Name="BlueSlider" Style="{StaticResource NeonSlider}"
+                                        Maximum="255" TickFrequency="1" ValueChanged="RgbSlider_ValueChanged"/>
+                                <TextBlock Grid.Row="2" Grid.Column="2" x:Name="BlueValue" Text="0" FontSize="11"
+                                           Foreground="{StaticResource BrushTextSecondary}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ============ RESET ============ -->
+                    <Button Style="{StaticResource PillButton}" HorizontalAlignment="Center"
+                            Margin="0,18,0,4" Click="ResetButton_Click"
+                            Content="{Binding [ResetDefault], Source={x:Static services:LocalizationService.Instance}}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

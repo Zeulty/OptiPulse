@@ -1,0 +1,147 @@
+<Window x:Class="ChlorideTweaks.DiskSelectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:services="clr-namespace:ChlorideTweaks.Services"
+        Title="Select Target Drive (CompactOS)"
+        Width="580" Height="530"
+        MinWidth="500" MinHeight="440"
+        WindowStartupLocation="CenterOwner"
+        Closing="Window_Closing"
+        Background="{DynamicResource BrushBackdrop}">
+
+    <Grid>
+        <!-- Soft halo in the background -->
+        <Ellipse IsHitTestVisible="False" Opacity="0.35" Margin="-80">
+            <Ellipse.Fill>
+                <RadialGradientBrush>
+                    <GradientStop Color="{DynamicResource ColAccentDim}" Offset="0"/>
+                    <GradientStop Color="#00151528" Offset="1"/>
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <Grid Margin="28,24,28,22">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- ============ HEADER ============ -->
+            <StackPanel Grid.Row="0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="💾" FontSize="20" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding [DiskSelectTitle], Source={x:Static services:LocalizationService.Instance}}"
+                               FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center"
+                               Foreground="{StaticResource BrushTextPrimary}"/>
+                </StackPanel>
+                <TextBlock Text="{Binding [DiskSelectSubtitle], Source={x:Static services:LocalizationService.Instance}}"
+                           FontSize="12.5" TextWrapping="Wrap" Margin="0,8,0,0"
+                           Foreground="{StaticResource BrushTextSecondary}"/>
+            </StackPanel>
+
+            <!-- ============ SCANNED DRIVES LIST ============ -->
+            <Border x:Name="DrivesListContainer" Grid.Row="1" Margin="0,16,0,0" CornerRadius="14" Padding="14,12"
+                    Background="{StaticResource BrushCardTranslucent}"
+                    BorderBrush="{StaticResource BrushBorder}" BorderThickness="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="DrivesPanel"/>
+                </ScrollViewer>
+            </Border>
+
+            <!-- ============ LIVE COMPRESSION PROGRESS OVERLAY ============ -->
+            <Border x:Name="ProgressOverlay" Grid.Row="1" Margin="0,16,0,0" CornerRadius="14" Padding="26,22"
+                    Visibility="Collapsed"
+                    Background="{StaticResource BrushCardTranslucent}"
+                    BorderBrush="{DynamicResource BrushNeonPurple}" BorderThickness="1.5">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="440">
+
+                    <!-- Dual Rotating Neon Ring + Percentage in Center -->
+                    <Grid Width="108" Height="108" HorizontalAlignment="Center" Margin="0,0,0,18">
+                        <!-- Outer subtle track ring -->
+                        <Ellipse Width="108" Height="108" Stroke="#252538" StrokeThickness="5"/>
+
+                        <!-- Outer rotating Neon Purple dashed ring -->
+                        <Ellipse x:Name="OuterSpinnerRing" Width="108" Height="108"
+                                 Stroke="{DynamicResource BrushNeonPurple}" StrokeThickness="5"
+                                 StrokeDashArray="10 6" StrokeDashCap="Round"
+                                 RenderTransformOrigin="0.5,0.5">
+                            <Ellipse.RenderTransform>
+                                <RotateTransform x:Name="OuterRingRotate" Angle="0"/>
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+
+                        <!-- Inner rotating Neon Green dashed ring -->
+                        <Ellipse x:Name="InnerSpinnerRing" Width="84" Height="84"
+                                 Stroke="{StaticResource BrushNeonGreen}" StrokeThickness="3.5"
+                                 StrokeDashArray="7 7" StrokeDashCap="Round" Opacity="0.85"
+                                 RenderTransformOrigin="0.5,0.5">
+                            <Ellipse.RenderTransform>
+                                <RotateTransform x:Name="InnerRingRotate" Angle="0"/>
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+
+                        <!-- Percentage readout inside the ring -->
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock x:Name="ProgressPercentText" Text="0%"
+                                       FontSize="23" FontWeight="Bold" FontFamily="Consolas"
+                                       HorizontalAlignment="Center"
+                                       Foreground="{StaticResource BrushTextPrimary}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Dynamic stage status text (e.g. "Compressing OS binaries (XPRESS8K)...") -->
+                    <TextBlock x:Name="ProgressStageText"
+                               Text="Compressing OS binaries (XPRESS8K)..."
+                               FontSize="14.5" FontWeight="SemiBold" TextAlignment="Center"
+                               TextWrapping="Wrap" HorizontalAlignment="Center"
+                               Foreground="{StaticResource BrushTextPrimary}"/>
+
+                    <!-- Live kernel/command detail ticker -->
+                    <TextBlock x:Name="ProgressDetailText"
+                               Text="compact.exe /CompactOS:always [WOF XPRESS8K]"
+                               FontSize="11.5" FontFamily="Consolas" TextAlignment="Center"
+                               Margin="0,6,0,16" HorizontalAlignment="Center"
+                               Foreground="{StaticResource BrushNeonGreen}"/>
+
+                    <!-- Neon Progress Bar -->
+                    <Grid>
+                        <ProgressBar x:Name="CompressionProgressBar"
+                                     Style="{StaticResource MonitorBar}"
+                                     Minimum="0" Maximum="100" Value="0"
+                                     Height="9" Margin="0"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- ============ FOOTER BUTTONS ============ -->
+            <Grid Grid.Row="2" Margin="0,18,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="RescanButton" Grid.Column="0" Style="{StaticResource PillButtonSecondary}"
+                        Click="RescanButton_Click" Padding="14,9">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🔄" FontSize="11.5" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                        <TextBlock Text="{Binding [DiskBtnRescan], Source={x:Static services:LocalizationService.Instance}}"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button x:Name="CancelButton" Style="{StaticResource PillButtonSecondary}"
+                            Click="CancelButton_Click" MinWidth="100" Margin="0,0,10,0">
+                        <TextBlock Text="{Binding [DiskBtnCancel], Source={x:Static services:LocalizationService.Instance}}"/>
+                    </Button>
+                    <Button x:Name="ApplyButton" Style="{StaticResource PillButton}"
+                            Click="ApplyButton_Click" MinWidth="165">
+                        <TextBlock Text="{Binding [DiskBtnApply], Source={x:Static services:LocalizationService.Instance}}"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
